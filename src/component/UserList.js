@@ -8,9 +8,9 @@ class UserList extends Component {
   }
   render() {
     console.log("UserList Render!!!!")
-    const { users } = this.props;
+    const { users, onRemove } = this.props;
     const list = users.map((user) => (
-      <User key={user.get('id')} text={user.get('text')} />
+      <User id={user.get('id')} text={user.get('text')} onRemove={onRemove} />
     ));
 
     return <div>{list}</div>;

@@ -41,15 +41,25 @@ class App extends Component {
         ),
     });
   };
+ 
 
   handleKeydown = (e) => {
     e.key === 'Enter' && this.handleClick(e);
   };
 
+  handleRemove = (id) => {
+    const { data } = this.state;
+    const nextUsers = data.get('users').filter((user) => user.get('id') !== id)
+    
+    this.setState({
+      data : data.update('users', (users) => nextUsers)
+    })
+  }
+
   render() {
     const { data } = this.state;
     const users = data.get('users');
-    const { handleChange, handleClick, handleKeydown } = this;
+    const { handleChange, handleClick, handleKeydown, handleRemove} = this;
 
     return (
       <div>
@@ -60,7 +70,7 @@ class App extends Component {
           onKeyDown={handleKeydown}
         />
         <button onClick={handleClick}>추가</button>
-        <UserList users={users} />
+        <UserList users={users} onRemove={handleRemove}/>
       </div>
     );
   }
