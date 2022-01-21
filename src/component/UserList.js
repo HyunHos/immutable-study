@@ -6,11 +6,12 @@ class UserList extends Component {
   shouldComponentUpdate(nextProps, nextState){
     return nextProps.users !== this.props.users
   }
-  render() {
+  render( ) {
     console.log("UserList Render!!!!")
     const { users, onRemove } = this.props;
+    debugger
     const list = users.map((user) => (
-      <User id={user.get('id')} text={user.get('text')} onRemove={onRemove} />
+      <User id={user.id} text={user.text} onRemove={onRemove} />
     ));
 
     return <div>{list}</div>;

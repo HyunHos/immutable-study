@@ -1,25 +1,36 @@
 import React, { Component } from 'react';
-import './style.css';
-import { Map, List } from 'immutable';
 import UserList from './component/UserList';
+import { Map, List, Record } from 'immutable';
+import './style.css';
+
+// User 를 위한 Record 생성
+const User = Record({
+  id: null,
+  text:null
+});
+ 
+// Data 를 위한 Record 생성
+const Data = Record({
+  input: '',
+  users: List()
+})
 
 class App extends Component {
-  id = 2;
+  id = 3;
   state = {
-    data: Map({
-      input: '',
-      users: List([
-        Map({
-          id: '0',
-          text: 'qwer',
+    data : Data({
+      users:List([
+        User({
+          id:1,
+          text:'velopert'
         }),
-        Map({
-          id: '1',
-          text: 'asdf',
-        }),
-      ]),
-    }),
-  };
+        User({
+          id: 2, 
+          text:'hhkim'
+        })
+      ])
+    })
+  }
 
   handleChange = (e) => {
     const { value } = e.target;
@@ -37,7 +48,7 @@ class App extends Component {
       data: data
         .set('input', '')
         .update('users', (users) =>
-          users.push(Map({ id: this.id++, text: data.get('input') }))
+          users.push(new User({ id: this.id++, text: data.get('input') }))
         ),
     });
   };
